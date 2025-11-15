@@ -94,16 +94,16 @@ Redacta brevemente los pasos para ejecutar tu aplicación en un contenedor Docke
 ## Demostración
 
 ### Intento de login fallido
-![Login fallido](images/login-fallido.png)
+![Login fallido](images/Crede-incorrectas.png)
 
 **Descripción:** Muestra un intento de login con credenciales incorrectas. El usuario ingresó "admi" como nombre de usuario, lo que resultó en un error 401 Unauthorized. La página muestra el mensaje "Credenciales incorrectas" en rojo, y en las herramientas de desarrollador se puede ver que la petición POST a `/login` retornó un código de estado 401.
 
 ### Login exitoso
-![Login exitoso](images/login-exitoso.png)
+![Login exitoso](images/Crede-Correctas.png)
 
 **Descripción:** Muestra un login exitoso con las credenciales correctas (usuario: "admin", contraseña: "1234"). La página muestra el mensaje "Autenticación exitosa" en verde, y en las herramientas de desarrollador se puede ver que la petición POST a `/login` retornó un código de estado 200 OK, confirmando que la autenticación fue exitosa.
 
 ### Visualización de productos después del login
-![Productos después del login](images/productos-login.png)
+![Productos después del login](images/Eje23.png)
 
 **Descripción:** Una vez completado el login exitoso, la aplicación muestra automáticamente la lista de productos del ejercicio 23. En la parte izquierda se puede ver la interfaz web con los tres productos formateados de manera legible: Zapatillas Deportivas ($89,900), Botas de Cuero ($129,900) y Sandalias Casuales ($49,900), cada uno con su respectiva categoría. En la parte derecha, las herramientas de desarrollador muestran la petición a la ruta protegida `/protegida` y su respuesta JSON completa, donde se puede observar el arreglo de productos con toda su estructura. Esto demuestra cómo el ejercicio 23 se integra perfectamente con el sistema de autenticación, mostrando los productos tanto en el frontend como en la respuesta de la API.
