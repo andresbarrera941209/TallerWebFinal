@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulación de Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Login de Prueba</h1>
+
+    <input id="username" type="text" placeholder="Usuario">
+    <input id="password" type="password" placeholder="Contraseña">
+
+    <button onclick="login()">Ingresar</button>
+
+    <div id="result"></div>
+    <div id="productos-container" style="margin-top: 20px; display: none;">
+      <h2 style="color: #0078ff; margin-top: 20px;">Productos</h2>
+      <div id="productos-list"></div>
+    </div>
+  </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+      const result = document.getElementById("result");
+      const productosContainer = document.getElementById("productos-container");
+      const productosList = document.getElementById("productos-list");
+
+      if (data.success) {
+        result.style.color = "green";
+        result.innerText = data.message;
+        
+        try {
+          const productosResponse = await fetch("http://localhost:3000/protegida");
+          const productosData = await productosResponse.json();
+          
+          if (productosData.productos) {
+            productosContainer.style.display = "block";
+            
+            let productosHTML = "<ul style='list-style: none; padding: 0; margin-top: 10px;'>";
+            productosData.productos.forEach((producto, index) => {
+              productosHTML += `<li style='padding: 10px; margin: 5px 0; background: white; border-radius: 6px; border-left: 4px solid #0078ff;'>
+                <strong>${index + 1}. ${producto.nombre}</strong><br>
+                Precio: $${producto.precio.toLocaleString()}<br>
+                Categoría: ${producto.categoria}
+              </li>`;
+            });
+            productosHTML += "</ul>";
+            productosList.innerHTML = productosHTML;
+          }
+        } catch (error) {
+          console.error("Error al obtener productos:", error);
+        }
+      } else {
+        result.style.color = "red";
+        result.innerText = data.message;
+        productosContainer.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
+

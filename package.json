@@ -2,7 +2,9 @@
   "name": "tallerweb",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/src/server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
